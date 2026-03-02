@@ -9,7 +9,7 @@ public with sharing class Restaurante {
         this.cardapio = new List<Produto>();
     }
 
-    public Restaurante(String nome, String endereco, CategoriaRestaurante categoria, List<Produto> cardapio){
+    public Restaurante(String nome, String endereco, CategoriaRestaurante categoria, List<Produto> cardapio){   
         this.nome = nome;
         this.endereco = endereco;
         this.categoria = categoria;
@@ -60,9 +60,10 @@ public with sharing class Restaurante {
 
             if (produto.nome.contains(termoBusca)){
                 produtos.add(produto);
+                System.debug('Produto adicionado!');
             } 
             else{
-                System.debug('Nenhum produto encontrado!');
+                System.debug('Produto ' + termoBusca + ' não encontrado!');
             }
         }
         return produtos;
