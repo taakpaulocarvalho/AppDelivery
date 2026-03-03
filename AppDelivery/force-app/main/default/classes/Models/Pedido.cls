@@ -1,4 +1,4 @@
-public with sharing class Pedido{
+public with sharing class Pedido extends EntidadeBase{
 
     public Cliente cliente { get; set; }
     public Restaurante restaurante { get; set; }
@@ -7,6 +7,7 @@ public with sharing class Pedido{
     public Decimal total { get; set; }
 
     public Pedido(Cliente cliente, Restaurante restaurante){
+        super();
         this.cliente = cliente;
         this.restaurante = restaurante;
         itens = new List<ItemPedido>();

@@ -1,4 +1,4 @@
-public with sharing class Restaurante {
+public with sharing class Restaurante extends EntidadeBase{
     
     public String nome { get; set; }
     public String endereco { get; set; }
@@ -6,10 +6,12 @@ public with sharing class Restaurante {
     public List<Produto> cardapio { get; set; }
     
     public Restaurante(){
+        super();
         this.cardapio = new List<Produto>();
     }
 
     public Restaurante(String nome, String endereco, CategoriaRestaurante categoria, List<Produto> cardapio){   
+        super();
         this.nome = nome;
         this.endereco = endereco;
         this.categoria = categoria;

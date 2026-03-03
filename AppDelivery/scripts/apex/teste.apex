@@ -20,7 +20,6 @@ prod.add(p1);
 prod.add(p2);
 prod.add(p3);
 prod.add(p4);
-prod.add(p1);
 prod.add(p5);
 Restaurante restaurante = new Restaurante('Bella Pizza', 'Av Antartico 381', CategoriaRestaurante.PIZZARIA, null);
 
@@ -124,3 +123,32 @@ CPFList.add(cliente2.cpf);
 CPFList.add(cliente3.cpf);
 Map<String, List<Pedido>> clientes = RelatorioService.gerarRelatorioPedidosPorCliente(pedidos, CPFList);
 
+System.debug(' ');
+System.debug('===================================================================================');
+System.debug('APP DELIVERY AVANCADO');
+System.debug('===================================================================================');
+System.debug(' ');
+System.debug(' ');
+
+//Produto produto1 = new Produto('Pizza Calabresa', 35.0);
+//Produto produto2 = new Produto ('Pizza Mussarela', 34.0);
+
+
+System.debug('ETAPA 1 (AVANCADO):');
+System.debug('P1 REAL: ' + p1.id);
+System.debug('P2 FAKE: ' + p1.id);
+System.debug('P2 REAL: ' + p2.id);
+
+
+System.debug('Teste EQUALS:');
+System.debug('Produto ' + p1.nome + ' e Produto ' + p2.nome);
+if (p1.equals(p2))
+    System.debug('VERDADEIRO');
+else
+    System.debug('FALSO');
+
+System.debug('Teste HASHCODE:');
+if (p1.hashCode() == p2.hashCode())
+    System.debug('VERDADEIRO');
+else
+    System.debug('FALSO');
