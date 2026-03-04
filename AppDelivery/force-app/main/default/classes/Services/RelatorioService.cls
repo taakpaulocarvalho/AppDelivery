@@ -7,7 +7,7 @@ public with sharing class RelatorioService {
         for (Pedido pedido : pedidos){
 
             if (pedido != null){
-                for (ItemPedido item : pedido.itens){
+                for (ItemPedido item : pedido.getItens()){
                     if (item.produto == null) continue;
 
                     Integer quantidadeAtual = ordenarProdutos.containsKey(item.produto) ? ordenarProdutos.get(item.produto) : 0;

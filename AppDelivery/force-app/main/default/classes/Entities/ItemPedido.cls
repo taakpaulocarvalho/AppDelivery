@@ -6,6 +6,13 @@ public with sharing class ItemPedido extends EntidadeBase{
 
     public ItemPedido(Produto produto, Integer quantidade){
         super();
+        if(produto == null || produto.preco.valorMonetario < 0){
+            throw new IllegalArgumentException('O produto deve ter um preço válido!');
+        }
+        
+        if(quantidade <= 0)
+            throw new IllegalArgumentException('Quantidade deve ser maior que zero!');
+        
         this.produto = produto;
         this.quantidade = quantidade;
         this.subtotal = calcularSubtotal();

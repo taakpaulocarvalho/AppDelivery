@@ -245,3 +245,5 @@ ped1.adicionarItemPedido(p1, 2);
 
 System.debug(' ');
 System.debug('Valor do pedido: ' + ped1.total.valorMonetario);
+
+

@@ -2,7 +2,7 @@ public with sharing class Pedido extends EntidadeBase{
 
     public Cliente cliente { get; private set; }
     public Restaurante restaurante { get; private set; }
-    public List<ItemPedido> itens { get; private set; }
+    private List<ItemPedido> itens;
     public StatusPedido status { get; private set; }
     public Dinheiro total { get; private set; }
 
@@ -17,6 +17,11 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
 
+        if (quantidade <= 0){
+            System.debug('A quantidade deve ser maior que zero!');
+            return;
+        }
+        
         if (!restaurante.cardapio.contains(produto)){
 
             System.debug('Produto ' + produto.nome + ' não existe no cardápio!');
@@ -26,11 +31,10 @@ public with sharing class Pedido extends EntidadeBase{
             
             for (ItemPedido item : itens){
 
-                if (item.produto.nome == produto.nome){
+                if (item.produto.id == produto.id){
                     
                     item.adicionarQuantidade(quantidade);
-                    item.calcularSubtotal();
-                    total = total.Somar(item.subtotal);
+                    total = calcularTotal();
                     System.debug('A quantidade de ' + item.produto.nome + ' foi aumentada com sucesso!');
 
                     return;
@@ -76,5 +80,9 @@ public with sharing class Pedido extends EntidadeBase{
 
         System.debug('Valor Total: ' + total);
         System.debug('Status do Pedido: ' + status);
+    }
+
+    public List<ItemPedido>  getItens(){
+        return itens;
     }
 }

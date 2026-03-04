@@ -1,6 +1,6 @@
 public with sharing class Documento {
 
-    private final String valor;
+    public final String valor { get; private set; }
 
     public Documento(String valor){
         this.valor = valor;
@@ -16,9 +16,5 @@ public with sharing class Documento {
 
     public Integer hashCode(){
         return System.hashCode(valor);
-    }
-
-    public String getValor(){
-        return valor;
     }
 }
