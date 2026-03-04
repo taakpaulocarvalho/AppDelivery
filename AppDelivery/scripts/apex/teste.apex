@@ -212,6 +212,7 @@ System.debug(' ');
 System.debug('Clientes iguais? ' + c1.equals(c2));
 System.debug('HashCode Cliente 1: ' + c1.hashCode());
 System.debug('HashCode Cliente 2: ' + c2.hashCode());
+System.debug(' ');
 
 try{
     Cliente clienteErrado = new Cliente('', doc1, end1, '(11)3943 2292');
@@ -219,3 +220,28 @@ try{
 catch(IllegalArgumentException e){
     System.debug('Erro: ' + e.getMessage());
 }
+
+
+System.debug(' ');
+Dinheiro d1 = new Dinheiro(50.0);
+
+Produto p1 = new Produto('Pizza Calabresa', d1);
+Produto p2 = new Produto('Pizza Mussarela', d1);
+List<Produto> cardapio = new List<Produto>();
+cardapio.add(p1);
+cardapio.add(p2);
+
+CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
+Restaurante rest1 = new Restaurante('Bella Pizza', end1, cat, cardapio);
+Restaurante rest2 = new Restaurante('Bella Pizza', end1, cat, cardapio);
+
+System.debug(' ');
+System.debug('Restaurantes são iguais' + rest1.equals(rest2));
+System.debug('HashCode Restaurante 1: ' + rest1.hashCode());
+System.debug('HashCode Restaurante 2: ' + rest2.hashCode());
+
+Pedido ped1 = new Pedido(c1, rest1);
+ped1.adicionarItemPedido(p1, 2);
+
+System.debug(' ');
+System.debug('Valor do pedido: ' + ped1.total.valorMonetario);

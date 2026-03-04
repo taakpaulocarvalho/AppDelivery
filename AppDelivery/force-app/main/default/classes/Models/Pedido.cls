@@ -4,7 +4,7 @@ public with sharing class Pedido extends EntidadeBase{
     public Restaurante restaurante { get; set; }
     public List<ItemPedido> itens { get; set; }
     public StatusPedido status { get; set; }
-    public Decimal total { get; set; }
+    public Dinheiro total { get; set; }
 
     public Pedido(Cliente cliente, Restaurante restaurante){
         super();
@@ -12,6 +12,7 @@ public with sharing class Pedido extends EntidadeBase{
         this.restaurante = restaurante;
         itens = new List<ItemPedido>();
         status = StatusPedido.CARRINHO;
+        total = new Dinheiro(0);
     }
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
@@ -29,7 +30,7 @@ public with sharing class Pedido extends EntidadeBase{
                     
                     item.quantidade += quantidade;
                     item.calcularSubtotal();
-                    total += item.subtotal;
+                    total = total.Somar(item.subtotal);
                     System.debug('A quantidade de ' + item.produto.nome + ' foi aumentada com sucesso!');
 
                     return;
@@ -45,10 +46,10 @@ public with sharing class Pedido extends EntidadeBase{
         }
     }
 
-    public Decimal calcularTotal(){
-        Decimal total = 0;
+    public Dinheiro calcularTotal(){
+        Dinheiro total = new Dinheiro(0);
         for (ItemPedido item : itens){
-            total += item.calcularSubtotal();
+            total = total.Somar(item.calcularSubtotal());
         }
         return total;
     }
