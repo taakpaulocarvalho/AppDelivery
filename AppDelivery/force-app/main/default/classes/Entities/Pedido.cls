@@ -17,6 +17,10 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
 
+        if (this.status != StatusPedido.CARRINHO){
+            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para adicionar produtos!');
+        }
+
         if (quantidade <= 0){
             System.debug('A quantidade deve ser maior que zero!');
             return;
@@ -50,7 +54,12 @@ public with sharing class Pedido extends EntidadeBase{
         }
     }
 
+
     public void removerProduto(Produto produto){
+
+        if (this.status != StatusPedido.CARRINHO){
+            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para adicionar produtos!');
+        }
 
         for(Integer i = 0; i < itens.size(); i++){
             if (itens[i].produto.id == produto.id){
@@ -92,7 +101,7 @@ public with sharing class Pedido extends EntidadeBase{
             System.debug('Pedido confirmado com sucesso!');
         }
         else{
-            System.debug('O pedido NÃO foi confimado! Verifique se a lista de produtos está VAZIA!');
+            System.debug('O pedido NÃO foi confimado! Verifique se a lista de produtos está VAZIA ou o pedido está no CARRINHO!');
         }
     }
 
