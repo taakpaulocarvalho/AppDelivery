@@ -135,6 +135,7 @@ System.debug(' ');
 
 
 System.debug('ETAPA 1 (AVANCADO):');
+System.debug('PARTE 1 (AVANCADO):');
 System.debug('P1 REAL: ' + p1.id);
 System.debug('P2 FAKE: ' + p1.id);
 System.debug('P2 REAL: ' + p2.id);
@@ -152,3 +153,50 @@ if (p1.hashCode() == p2.hashCode())
     System.debug('VERDADEIRO');
 else
     System.debug('FALSO');
+
+System.debug(' ');
+System.debug(' ');
+System.debug('PARTE 2 (AVANCADO):');
+Documento doc1 = new Documento('12345678901');
+Documento doc2 = new Documento('45847548341');
+System.debug(' ');
+System.debug('Documentos iguais? '  + doc1.equals(doc2));
+System.debug('HashCode Documento 1: ' + doc1.hashCode());
+System.debug('HashCode Documento 2: ' + doc2.hashCode());
+
+System.debug(' ');
+System.debug('TESTANDO ENDERECO');
+Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
+Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
+
+System.debug('Enderecos iguais? ' + end1.equals(end2));
+System.debug('HashCode Endereco 1: ' + end1.hashCode());
+System.debug('HashCode Endereco 2: ' + end2.hashCode());
+System.debug(' ');
+try{
+    Dinheiro d1 = new Dinheiro(50.0);
+    Dinheiro d2 = new Dinheiro(40.0);
+    Dinheiro soma = d1.Somar(d2);
+    System.debug(' ');
+    System.debug('Resultado soma: ' + soma);
+
+    System.debug(' ');
+    System.debug('Valor de d1 ' + (d1.valorMonetario == 50.0));
+
+    System.debug(' ');
+    Dinheiro multiplicacao = d1.Multiplicar(2);
+    System.debug('Resultado multiplicacao (50.0 * 2): ' + multiplicacao);
+
+    System.debug(' ');
+    System.debug('Os objetos d1 e d2 são iguais: ' + d1.equals(d2));
+    System.debug('HashCode d1: ' + d1.hashCode());
+    System.debug('HashCode d2: ' + d2.hashCode());
+
+    System.debug(' ');
+    Dinheiro negativo = new Dinheiro(-10.0);
+
+
+}
+catch(IllegalArgumentException e){
+    System.debug('Erro: ' + e.getMessage());
+}
