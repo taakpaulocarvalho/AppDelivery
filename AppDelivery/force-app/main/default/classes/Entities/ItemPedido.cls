@@ -19,10 +19,14 @@ public with sharing class ItemPedido extends EntidadeBase{
     }
 
     public Dinheiro calcularSubtotal(){
-        return produto.preco.Multiplicar(quantidade);
+        return produto.preco.Multiplicar(this.quantidade);
     }
 
     public Integer adicionarQuantidade(Integer quantidade){
+        if (quantidade <= 0){
+            throw new IllegalArgumentException('Quantidade deve ser maior que zero!');
+        }
+
         this.quantidade += quantidade;
         subtotal = calcularSubtotal();
         return this.quantidade;
