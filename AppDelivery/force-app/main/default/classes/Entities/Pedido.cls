@@ -50,6 +50,34 @@ public with sharing class Pedido extends EntidadeBase{
         }
     }
 
+    public void removerProduto(Produto produto){
+
+        for(Integer i = 0; i < itens.size(); i++){
+            if (itens[i].produto.id == produto.id){
+                itens.remove(i);
+                total = calcularTotal();
+                System.debug('O produto ' + produto.nome + ' foi removido com sucesso!');
+                return;   
+            }
+        }
+    }
+
+    public void alterarQuantidade(Produto produto, Integer quantidade){
+        
+        if (quantidade <= 0){
+            removerProduto(produto);
+            return;
+        }
+
+        for (ItemPedido item : itens){
+            if (item.produto.id == produto.id){
+                item.atualizarQuantidade(quantidade);
+                this.total = calcularTotal();
+                return;
+            } 
+        }
+    }
+
     public Dinheiro calcularTotal(){
         Dinheiro total = new Dinheiro(0);
         for (ItemPedido item : itens){

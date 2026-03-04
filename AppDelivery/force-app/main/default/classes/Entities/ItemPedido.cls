@@ -31,4 +31,13 @@ public with sharing class ItemPedido extends EntidadeBase{
         subtotal = calcularSubtotal();
         return this.quantidade;
     }
+
+    public void atualizarQuantidade(Integer quantidade){
+        if (quantidade <= 0){
+            throw new IllegalArgumentException('Quantidade deve ser maior que zero!');
+        }
+
+        this.quantidade = quantidade;
+        this.subtotal = calcularSubtotal();
+    }
 }
