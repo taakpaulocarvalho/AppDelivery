@@ -1,5 +1,6 @@
 
 //TESTES ETAPA 1
+/*
 System.debug('TESTES ETAPA 1');
 System.debug(' ');
 Cliente cliente = new Cliente('Neymar', '4232445-54', 'SBC-SP', '(11)123123123');
@@ -153,7 +154,7 @@ if (p1.hashCode() == p2.hashCode())
     System.debug('VERDADEIRO');
 else
     System.debug('FALSO');
-
+*/
 System.debug(' ');
 System.debug(' ');
 System.debug('PARTE 2 (AVANCADO):');
@@ -196,6 +197,24 @@ try{
     Dinheiro negativo = new Dinheiro(-10.0);
 
 
+}
+catch(IllegalArgumentException e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+System.debug(' ');
+System.debug(' ');
+System.debug('PARTE 3 (AVANCADO):');
+Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+System.debug('Verificar Cliente: ' + c1.nome + ' ' + c1.documento + ' ' + c1.endereco.cidade + ' ' + c1.telefone + ' ' + c1.getTipoPessoa());
+System.debug(' ');
+System.debug('Clientes iguais? ' + c1.equals(c2));
+System.debug('HashCode Cliente 1: ' + c1.hashCode());
+System.debug('HashCode Cliente 2: ' + c2.hashCode());
+
+try{
+    Cliente clienteErrado = new Cliente('', doc1, end1, '(11)3943 2292');
 }
 catch(IllegalArgumentException e){
     System.debug('Erro: ' + e.getMessage());

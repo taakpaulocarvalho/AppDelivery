@@ -1,15 +1,15 @@
-public with sharing class Cliente extends EntidadeBase{
+public with sharing class Cliente extends Pessoa{
     
-    public String nome { get; set; }
-    public String cpf { get; set; }
-    public String endereco { get; set; }
+    public Endereco endereco { get; set; }
     public String telefone { get; set; }
 
-    public Cliente(String nome, String cpf, String endereco, String telefone){
-        super();
-        this.nome = nome;
-        this.cpf = cpf;
+    public Cliente(String nome, Documento documento, Endereco endereco, String telefone){
+        super(nome, documento);
         this.endereco = endereco;
         this.telefone = telefone;
+    }
+
+    public override String getTipoPessoa(){
+        return 'Cliente';
     }
 }
