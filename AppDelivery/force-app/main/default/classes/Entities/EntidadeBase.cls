@@ -2,7 +2,7 @@ public with sharing abstract class EntidadeBase {
     
     public final UUID id { get; private set; }
     
-    public EntidadeBase(){
+    protected EntidadeBase(){
         this.id = UUID.randomUUID();
     }
 

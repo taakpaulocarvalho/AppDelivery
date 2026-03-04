@@ -1,7 +1,7 @@
 public with sharing class Produto extends EntidadeBase{
     
-    public String nome { get; set; }
-    public Dinheiro preco { get; set; }
+    public String nome { get; private set; }
+    public Dinheiro preco { get; private set; }
 
     public Produto(){
         super();

@@ -1,9 +1,9 @@
 public with sharing class Endereco {
     
-    public final String logradouro { get; private set; }
-    public final String complemento { get; private set; }
-    public final String numero { get; private set; }
-    public final String cidade { get; private set; }
+    private final String logradouro;
+    private final String complemento;
+    private final String numero;
+    private final String cidade;
 
     public Endereco(String logradouro, String numero, String complemento, String cidade){
         this.logradouro = logradouro;
@@ -25,5 +25,21 @@ public with sharing class Endereco {
 
     public Integer hashCode(){
         return System.hashCode(logradouro + numero + complemento + cidade);
+    }
+
+    public String getLogradouro(){
+        return logradouro;
+    }
+
+    public String getNumero(){
+        return numero;
+    }
+    
+    public String getComplemento(){
+        return complemento;
+    }
+    
+    public String getCidade(){
+        return cidade;
     }
 }

@@ -1,9 +1,9 @@
 public with sharing class Restaurante extends EntidadeBase{
     
-    public String nome { get; set; }
-    public Endereco endereco { get; set; }
-    public CategoriaRestaurante categoria { get; set; }
-    public List<Produto> cardapio { get; set; }
+    public String nome { get; private set; }
+    public Endereco endereco { get; private set; }
+    public CategoriaRestaurante categoria { get; private set; }
+    public List<Produto> cardapio { get; private set; }
     
     public Restaurante(){
         super();

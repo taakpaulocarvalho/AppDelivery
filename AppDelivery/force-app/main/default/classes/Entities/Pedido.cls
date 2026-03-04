@@ -1,10 +1,10 @@
 public with sharing class Pedido extends EntidadeBase{
 
-    public Cliente cliente { get; set; }
-    public Restaurante restaurante { get; set; }
-    public List<ItemPedido> itens { get; set; }
-    public StatusPedido status { get; set; }
-    public Dinheiro total { get; set; }
+    public Cliente cliente { get; private set; }
+    public Restaurante restaurante { get; private set; }
+    public List<ItemPedido> itens { get; private set; }
+    public StatusPedido status { get; private set; }
+    public Dinheiro total { get; private set; }
 
     public Pedido(Cliente cliente, Restaurante restaurante){
         super();
@@ -28,7 +28,7 @@ public with sharing class Pedido extends EntidadeBase{
 
                 if (item.produto.nome == produto.nome){
                     
-                    item.quantidade += quantidade;
+                    item.adicionarQuantidade(quantidade);
                     item.calcularSubtotal();
                     total = total.Somar(item.subtotal);
                     System.debug('A quantidade de ' + item.produto.nome + ' foi aumentada com sucesso!');

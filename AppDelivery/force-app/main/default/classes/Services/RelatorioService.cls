@@ -10,8 +10,8 @@ public with sharing class RelatorioService {
                 for (ItemPedido item : pedido.itens){
                     if (item.produto == null) continue;
 
-                    Integer quantidadeAtual = ordenarProdutos.get(item.produto) != null ? ordenarProdutos.get(item.produto) : 0;
-                    ordenarProdutos.put(item.produto, item.quantidade + quantidadeAtual);
+                    Integer quantidadeAtual = ordenarProdutos.containsKey(item.produto) ? ordenarProdutos.get(item.produto) : 0;
+                    ordenarProdutos.put(item.produto, item.adicionarQuantidade(quantidadeAtual));
                 }
             }
         }
@@ -32,15 +32,15 @@ public with sharing class RelatorioService {
     }
 
 
-    public static Map<String, List<Pedido>> gerarRelatorioPedidosPorCliente(List<Pedido> pedidos, List<String> cpfs){
+    public static Map<Documento, List<Pedido>> gerarRelatorioPedidosPorCliente(List<Pedido> pedidos, List<Documento> cpfs){
 
-        Map<String,List<Pedido>> pedidosPorCliente = new Map<String,List<Pedido>>();
-        Set<String> cpfSet = new Set<String>(cpfs);
+        Map<Documento,List<Pedido>> pedidosPorCliente = new Map<Documento,List<Pedido>>();
+        Set<Documento> cpfSet = new Set<Documento>(cpfs);
 
         for (Pedido pedido : pedidos){
             if (pedido == null || pedido.cliente == null ) continue;
             
-            String cpf = pedido.cliente.cpf;
+            Documento cpf = pedido.cliente.documento;
             
             if (cpfSet.contains(cpf)){
                 
@@ -49,7 +49,7 @@ public with sharing class RelatorioService {
             }
         }
 
-        for (String cpf : pedidosPorCliente.keySet()){
+        for (Documento cpf : pedidosPorCliente.keySet()){
             System.debug('Cliente: ' + cpf + ' - ' + pedidosPorCliente.get(cpf).size() + ' pedidos');
         }
 
