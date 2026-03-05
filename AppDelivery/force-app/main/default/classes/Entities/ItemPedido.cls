@@ -6,7 +6,7 @@ public with sharing class ItemPedido extends EntidadeBase{
 
     private ItemPedido(Produto produto, Integer quantidade){
         super();
-        if(produto == null || produto.preco.valorMonetario < 0){
+        if(produto == null || produto.calcularPrecoFinal().valorMonetario < 0){
             throw new IllegalArgumentException('O produto deve ter um preço válido!');
         }
         
@@ -20,7 +20,7 @@ public with sharing class ItemPedido extends EntidadeBase{
 
     public static ItemPedido criarItemPedido(Produto produto, Integer quantidade){
         
-        if(produto == null || produto.preco.valorMonetario < 0)
+        if(produto == null || produto.calcularPrecoFinal().valorMonetario < 0)
             throw new IllegalArgumentException('Verifique o produto é VAZIO ou a quantidade é menor ou igual a 0!');
 
         return new ItemPedido(produto, quantidade);
@@ -28,7 +28,7 @@ public with sharing class ItemPedido extends EntidadeBase{
 
 
     public Dinheiro calcularSubtotal(){
-        return produto.preco.Multiplicar(this.quantidade);
+        return produto.calcularPrecoFinal().Multiplicar(this.quantidade);
     }
 
     public Integer adicionarQuantidade(Integer quantidade){

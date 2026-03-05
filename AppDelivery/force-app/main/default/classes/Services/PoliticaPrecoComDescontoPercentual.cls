@@ -11,8 +11,8 @@ public with sharing class PoliticaPrecoComDescontoPercentual implements Politica
     }
 
     public Dinheiro calcularPreco(Produto produto){
-        Decimal valorDescontar = produto.preco.valorMonetario * (this.percentual / 100);
+        Decimal valorDescontar = produto.precoBase.valorMonetario * (this.percentual / 100);
 
-        return produto.preco.Subtrair(new Dinheiro(valorDescontar));
+        return produto.precoBase.Subtrair(new Dinheiro(valorDescontar));
     }
 }

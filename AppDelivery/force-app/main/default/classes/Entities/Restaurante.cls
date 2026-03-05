@@ -47,7 +47,7 @@ public with sharing class Restaurante extends EntidadeBase{
             System.debug('CARDAPIO DO RESTAURANTE ' + nome);
         
             for(Integer i = 0; i < cardapio.size(); i++){
-                System.debug('Produto ' + (i+1) + ': ' + cardapio[i].nome + ' - R$ ' + cardapio[i].preco);
+                System.debug('Produto ' + (i+1) + ': ' + cardapio[i].nome + ' - R$ ' + cardapio[i].calcularPrecoFinal());
             }
             
             System.debug('FIM DO CARDAPIO');

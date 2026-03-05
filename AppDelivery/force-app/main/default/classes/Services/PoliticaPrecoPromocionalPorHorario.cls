@@ -27,11 +27,11 @@ public with sharing class PoliticaPrecoPromocionalPorHorario implements Politica
     public Dinheiro calcularPreco(Produto produto){
         
         if(HorarioAtual >= horaInicioDesconto && HorarioAtual <= horaFimDesconto){
-            Decimal valorDescontar = produto.preco.valorMonetario * (percentual / 100);
+            Decimal valorDescontar = produto.precoBase.valorMonetario * (percentual / 100);
 
-            return produto.preco.Subtrair(new Dinheiro(valorDescontar));
+            return produto.precoBase.Subtrair(new Dinheiro(valorDescontar));
         }
 
-        return produto.preco;
+        return produto.precoBase;
     }
 }

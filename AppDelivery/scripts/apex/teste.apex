@@ -412,22 +412,41 @@ System.debug('ETAPA 3 - PARTE 2:');
 System.debug('Ainda nenhuma classe implementa a interface para testar');
 System.debug('');
 
+
+System.debug('ETAPA 3 - PARTE 3:');
+System.debug('');
+
 try{
     Produto prod1 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPadrao());
-    System.debug('Preco padrao: ' + prod1.getPreco().valorMonetario);
+    System.debug('Preco padrao: ' + prod1.calcularPrecoFinal().valorMonetario);
 
     Produto prod2 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoComDescontoPercentual(10.0));
-    System.debug('Preco com desconto: ' + prod2.getPreco().valorMonetario);
+    System.debug('Preco com desconto: ' + prod2.calcularPrecoFinal().valorMonetario);
 
     Time inicio = Time.newInstance(18, 0, 0, 0);
     Time fim = Time.newInstance(22, 0, 0, 0);
     Time horaAtual = Time.newInstance(20, 0, 0, 0);
 
     Produto prod3 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPromocionalPorHorario(inicio, fim, horaAtual, 50.0));
-    System.debug('Preco com desconto percentual: ' + prod3.getPreco().valorMonetario);
+    System.debug('Preco com desconto percentual: ' + prod3.calcularPrecoFinal().valorMonetario);
 
     
 }
 catch(Exception e){
     System.debug('Erro: ' + e.getMessage());
 }
+
+System.debug('ETAPA 3 - PARTE 4:');
+System.debug('');
+
+
+PoliticaDePreco politPreco = new PoliticaPrecoComDescontoPercentual(50);
+Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1, politPreco);
+ItemPedido pedido = ItemPedido.criarItemPedido(pizza1, 1);
+
+System.debug('Subtotal: ' + pedido.calcularSubtotal().valorMonetario);
+
+
+
+
+
