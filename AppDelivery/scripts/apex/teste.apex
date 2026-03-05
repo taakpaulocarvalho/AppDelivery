@@ -381,7 +381,7 @@ System.debug('');
 System.debug('ETAPA 2 - PARTE 5:');
 System.debug(' ');
 */
-
+/*
 Documento doc1 = new Documento('12345678901');
 Documento doc2 = new Documento('45847548341');
 
@@ -395,12 +395,12 @@ CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
 
 Dinheiro dinheiro1 = new Dinheiro(50.0);
 
-//Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1);
-//Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1);
+Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPadrao());
+Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1, new PoliticaPrecoPadrao());
 
 List<Produto> cardapio = new List<Produto>();
-//cardapio.add(pizza1);
-//cardapio.add(pizza2);
+cardapio.add(pizza1);
+cardapio.add(pizza2);
 
 System.debug('');
 System.debug('ETAPA 3 - PARTE 1:');
@@ -441,12 +441,67 @@ System.debug('');
 
 
 PoliticaDePreco politPreco = new PoliticaPrecoComDescontoPercentual(50);
-Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1, politPreco);
 ItemPedido pedido = ItemPedido.criarItemPedido(pizza1, 1);
 
 System.debug('Subtotal: ' + pedido.calcularSubtotal().valorMonetario);
+*/
+
+System.debug('');
+System.debug('ETAPA 3 - PARTE 5:');
+System.debug('');
+
+Documento doc1 = new Documento('12345678901');
+Documento doc2 = new Documento('45847548341');
+
+Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
+Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
+
+Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+
+CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
+
+Dinheiro dinheiro1 = new Dinheiro(50.0);
+
+List<Produto> cardapio = new List<Produto>();
 
 
+Time inicio = Time.newInstance(18, 0, 0, 0);
+Time fim = Time.newInstance(22, 0, 0, 0);
+Time horaAtual = Time.newInstance(20, 0, 0, 0);
+Restaurante rest1 = new Restaurante('Bella Pizza', end1, cat, cardapio);
+
+System.debug('Requisitos 1, 2, 3, e 4 (mesmo produto com diferentes politicas e altecao de politica em execucao):');
+System.debug('Produto com politica padrão:');
+Produto produtoPoliticas = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPadrao());
+System.debug('Preço padrão: ' + produtoPoliticas.calcularPrecoFinal().valorMonetario);
+System.debug('');
+
+System.debug('Produto com politica desconto percentual:');
+produtoPoliticas.alterarPoliticaDePreco(new PoliticaPrecoComDescontoPercentual(50));
+System.debug('Preço com desconto: ' + produtoPoliticas.calcularPrecoFinal().valorMonetario);
+System.debug('');
+
+System.debug('Produto com politica promocional:');
+produtoPoliticas.alterarPoliticaDePreco(new PoliticaPrecoPromocionalPorHorario(inicio, fim, horaAtual, 50.0)); 
+System.debug('Preço promocional por horario: ' + produtoPoliticas.calcularPrecoFinal().valorMonetario);
+System.debug('');
+
+System.debug('Requisito 5 (pedido com multiplos produtos com politicas diferentes):');
+System.debug('Adicionando pedido com Politica de Preco Padrao, e outro com Politca com Desconto Percentual: ');
+
+Produto prod1 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPadrao());
+Produto prod2 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoComDescontoPercentual(50));
+
+cardapio.add(prod1);
+cardapio.add(prod2);
+
+Pedido pedidoPoliticas = new Pedido(c1, rest1);
+pedidoPoliticas.adicionarItemPedido(prod1, 1);
+pedidoPoliticas.adicionarItemPedido(prod2, 1);
+
+System.debug('Total do pedido: ' + pedidoPoliticas.total.valorMonetario);
+System.debug('');
 
 
 

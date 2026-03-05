@@ -18,4 +18,12 @@ public with sharing class Produto extends EntidadeBase{
     public Dinheiro calcularPrecoFinal(){
         return this.politicaDePreco.calcularPreco(this);
     }
+
+    public void alterarPoliticaDePreco(PoliticaDePreco politicaDePreco){
+        if (politicaDePreco == null){
+            throw new IllegalArgumentException('Politica de preco nao pode ser nula!');
+        }
+
+        this.politicaDePreco = politicaDePreco;
+    }
 }
