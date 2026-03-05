@@ -2,7 +2,7 @@ public with sharing class Pedido extends EntidadeBase{
 
     public Cliente cliente { get; private set; }
     public Restaurante restaurante { get; private set; }
-    private List<ItemPedido> itens;
+    private List<ItemPedido> itens = new List<ItemPedido>();
     public StatusPedido status { get; private set; }
     public Dinheiro total { get; private set; }
 
@@ -10,7 +10,6 @@ public with sharing class Pedido extends EntidadeBase{
         super();
         this.cliente = cliente;
         this.restaurante = restaurante;
-        itens = new List<ItemPedido>();
         status = StatusPedido.CARRINHO;
         total = new Dinheiro(0);
     }
@@ -18,7 +17,7 @@ public with sharing class Pedido extends EntidadeBase{
     public void adicionarItemPedido(Produto produto, Integer quantidade){
 
         if (this.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para adicionar produtos!');
+            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para adicionar produtos!');
         }
 
         if (quantidade <= 0){
@@ -45,9 +44,8 @@ public with sharing class Pedido extends EntidadeBase{
                 }
             } 
 
-            ItemPedido item = new ItemPedido(produto, quantidade);
-            itens.add(item);
-
+            //ItemPedido item = new ItemPedido(produto, quantidade);
+            itens.add(ItemPedido.criarItemPedido(produto, quantidade));
             System.debug('O pedido foi adicionado com sucesso!');
 
             total = calcularTotal();
@@ -58,7 +56,7 @@ public with sharing class Pedido extends EntidadeBase{
     public void removerProduto(Produto produto){
 
         if (this.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para adicionar produtos!');
+            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para remover produtos!');
         }
 
         for(Integer i = 0; i < itens.size(); i++){
@@ -73,6 +71,10 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void alterarQuantidade(Produto produto, Integer quantidade){
         
+        if (this.status != StatusPedido.CARRINHO){
+            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para alterar produtos!');
+        }
+
         if (quantidade <= 0){
             removerProduto(produto);
             return;
@@ -101,7 +103,8 @@ public with sharing class Pedido extends EntidadeBase{
             System.debug('Pedido confirmado com sucesso!');
         }
         else{
-            System.debug('O pedido NÃO foi confimado! Verifique se a lista de produtos está VAZIA ou o pedido está no CARRINHO!');
+            String erro = itens.isEmpty() ? 'Pedido VAZIO!' : 'Status do pedido diferente de CARRINHO!';
+            throw new IllegalArgumentException(erro);
         }
     }
 
@@ -123,3 +126,9 @@ public with sharing class Pedido extends EntidadeBase{
         return itens;
     }
 }
+
+
+
+
+
+

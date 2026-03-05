@@ -155,6 +155,8 @@ if (p1.hashCode() == p2.hashCode())
 else
     System.debug('FALSO');
 */
+
+/*
 System.debug(' ');
 System.debug(' ');
 System.debug('PARTE 2 (AVANCADO):');
@@ -245,5 +247,137 @@ ped1.adicionarItemPedido(p1, 2);
 
 System.debug(' ');
 System.debug('Valor do pedido: ' + ped1.total.valorMonetario);
+*/
 
+System.debug('');
+System.debug('ETAPA 2 - PARTE 1:');
+System.debug(' ');
+
+Documento doc1 = new Documento('12345678901');
+Documento doc2 = new Documento('45847548341');
+
+Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
+Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
+
+Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+
+CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
+
+Dinheiro dinheiro1 = new Dinheiro(50.0);
+
+Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1);
+Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1);
+
+List<Produto> cardapio = new List<Produto>();
+cardapio.add(pizza1);
+cardapio.add(pizza2);
+
+System.debug('Produto: ' + pizza1.nome + ' - ' + pizza1.preco.valorMonetario);
+
+Restaurante rest1 = new Restaurante('Bella Pizza', end1, cat, cardapio);
+
+try{
+    Pedido pedido = new Pedido(c1, rest1);
+    System.debug('Pedido criado. Status: ' + pedido.status);
+
+    pedido.adicionarItemPedido(pizza1, 2);
+    System.debug('Valor do pedido: ' + pedido.total.valorMonetario);
+
+    //ItemPedido item = new ItemPedido();
+}
+catch(IllegalArgumentException e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+
+
+
+
+System.debug('');
+System.debug('ETAPA 2 - PARTE 2:');
+System.debug(' ');
+
+try {
+    Pedido pedido = new Pedido(c1, rest1);
+    pedido.adicionarItemPedido(pizza1, 3);
+
+    System.debug('Valor do pedido total: ' + pedido.total.valorMonetario);
+
+    Produto produtoNegativo = new Produto('Produto Negativo', new Dinheiro(-10.0));
+    pedido.adicionarItemPedido(produtoNegativo, 1);
+
+
+} catch (IllegalArgumentException e) {
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try{
+    Pedido pedido = new Pedido(c1, rest1);
+    System.debug('Adicionando quantidade 0');
+    pedido.adicionarItemPedido(pizza1, 0);
+
+} catch (IllegalArgumentException e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+
+
+
+System.debug('');
+System.debug('ETAPA 2 - PARTE 3:');
+System.debug(' ');
+
+try{
+    Pedido pedido = new Pedido(c1, rest1);
+
+    pedido.adicionarItemPedido(pizza1, 2);
+    pedido.alterarQuantidade(pizza1, 5);
+
+    pedido.adicionarItemPedido(pizza2, 1);
+    pedido.alterarQuantidade(pizza2, 0);
+
+    pedido.removerProduto(pizza1);
+
+    System.debug('Status: ' + pedido.status);
+    System.debug('Valor do pedido total: ' + pedido.total.valorMonetario);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+
+System.debug('');
+System.debug('ETAPA 2 - PARTE 4:');
+System.debug(' ');
+
+try{
+    Pedido pedido = new Pedido(c1, rest1);
+    System.debug('Status inicial: ' + pedido.status);
+
+    pedido.adicionarItemPedido(pizza1, 1);
+    pedido.confirmarPedido();
+    System.debug('Status apos confirmar: ' + pedido.status);
+
+
+    pedido.removerProduto(pizza1);
+    pedido.adicionarItemPedido(pizza2, 1);
+
+} catch (Exception  e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try {
+    Pedido pedido = new Pedido(c1, rest1);
+    pedido.confirmarPedido();   
+
+} catch (Exception e) {
+    System.debug('Erro: ' + e.getMessage());
+}
+
+
+
+System.debug('');
+System.debug('ETAPA 2 - PARTE 5:');
+System.debug(' ');
 
