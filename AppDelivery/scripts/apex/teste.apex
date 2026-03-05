@@ -381,3 +381,14 @@ System.debug('');
 System.debug('ETAPA 2 - PARTE 5:');
 System.debug(' ');
 
+
+
+
+System.debug('');
+System.debug('ETAPA 3 - PARTE 1:');
+System.debug(' Apenas criacao da Interface');
+System.debug('');
+
+
+System.debug('ETAPA 3 - PARTE 2:');
+System.debug('Ainda nenhuma classe implementa a interface para testar')
