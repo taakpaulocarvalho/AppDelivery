@@ -248,7 +248,7 @@ ped1.adicionarItemPedido(p1, 2);
 System.debug(' ');
 System.debug('Valor do pedido: ' + ped1.total.valorMonetario);
 */
-
+/*
 System.debug('');
 System.debug('ETAPA 2 - PARTE 1:');
 System.debug(' ');
@@ -380,9 +380,27 @@ try {
 System.debug('');
 System.debug('ETAPA 2 - PARTE 5:');
 System.debug(' ');
+*/
 
+Documento doc1 = new Documento('12345678901');
+Documento doc2 = new Documento('45847548341');
 
+Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
+Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
 
+Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+
+CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
+
+Dinheiro dinheiro1 = new Dinheiro(50.0);
+
+//Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1);
+//Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1);
+
+List<Produto> cardapio = new List<Produto>();
+//cardapio.add(pizza1);
+//cardapio.add(pizza2);
 
 System.debug('');
 System.debug('ETAPA 3 - PARTE 1:');
@@ -391,4 +409,25 @@ System.debug('');
 
 
 System.debug('ETAPA 3 - PARTE 2:');
-System.debug('Ainda nenhuma classe implementa a interface para testar')
+System.debug('Ainda nenhuma classe implementa a interface para testar');
+System.debug('');
+
+try{
+    Produto prod1 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPadrao());
+    System.debug('Preco padrao: ' + prod1.getPreco().valorMonetario);
+
+    Produto prod2 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoComDescontoPercentual(10.0));
+    System.debug('Preco com desconto: ' + prod2.getPreco().valorMonetario);
+
+    Time inicio = Time.newInstance(18, 0, 0, 0);
+    Time fim = Time.newInstance(22, 0, 0, 0);
+    Time horaAtual = Time.newInstance(20, 0, 0, 0);
+
+    Produto prod3 = new Produto('Pizza Calabresa', dinheiro1, new PoliticaPrecoPromocionalPorHorario(inicio, fim, horaAtual, 50.0));
+    System.debug('Preco com desconto percentual: ' + prod3.getPreco().valorMonetario);
+
+    
+}
+catch(Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
