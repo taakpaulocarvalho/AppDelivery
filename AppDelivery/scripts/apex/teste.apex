@@ -427,3 +427,38 @@ PoliticaDeFrete percentual = new FretePorPercentualDoTotal(10.0);
 processador2.aplicarPoliticaFrete(pedido2, percentual);
 
 System.debug('Status apos confirmar: ' + pedido2.status);
+
+System.debug('');
+System.debug('ETAPA 4 - PARTE 4:');
+System.debug(' Apenas criacao da Interface');
+System.debug('');
+
+try{
+    processador2.confirmarPedido(pedido2);
+    processador2.finalizarPedido(pedido2);
+    System.debug('Status do Pedido: ' + pedido2.status);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try {
+    processador2.cancelarPedido(pedido2);
+
+} catch(Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try{
+    processador2.confirmarPedido(pedido2);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try {
+    processador2.adicionarProduto(pedido2, pizza2, 1);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}

@@ -43,8 +43,17 @@ public with sharing class ProcessadorPedido {
        System.debug('Pedido confirmado com sucesso!');
     }
 
+    public void finalizarPedido(Pedido pedido){
+        if (pedido.status != StatusPedido.EM_PROCESSAMENTO)
+            throw new IllegalArgumentException('O pedido deve estar no status EM_PROCESSAMENTO para ser entregue!');
+
+        pedido.finalizarEntrega();
+       System.debug('Pedido entregue com sucesso!');
+
+    }
+
     public void cancelarPedido(Pedido pedido){
-        if (pedido.status != StatusPedido.CARRINHO){
+        if (pedido.status == StatusPedido.ENTREGUE){
             throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para ser cancelado!');
         }
 

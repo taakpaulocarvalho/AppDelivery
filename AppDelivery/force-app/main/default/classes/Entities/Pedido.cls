@@ -80,13 +80,21 @@ public with sharing class Pedido extends EntidadeBase{
     }
 
     public void cancelar(){
-        this.status = StatusPedido.CARRINHO;
+        this.status = StatusPedido.CANCELADO;
+    }
+
+    public void finalizarEntrega(){
+        this.status = StatusPedido.ENTREGUE;
     }
 
     public List<ItemPedido>  getItens(){
 
         return new List<ItemPedido>(this.itens);
     }
+
+    public void aplicarFrete(Dinheiro frete){
+        this.frete = frete;
+    } 
 
     public void exibirResumo(){
 
@@ -101,10 +109,6 @@ public with sharing class Pedido extends EntidadeBase{
         System.debug('Valor Total: ' + total);
         System.debug('Status do Pedido: ' + status);
     }
-
-    public void aplicarFrete(Dinheiro frete){
-        this.frete = frete;
-    } 
 }
 
 
