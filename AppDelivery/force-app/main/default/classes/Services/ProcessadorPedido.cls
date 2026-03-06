@@ -3,30 +3,17 @@ public with sharing class ProcessadorPedido {
     public ProcessadorPedido(){}
 
     public void adicionarProduto(Pedido pedido, Produto produto, Integer quantidade){
-         if (pedido.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para adicionar produtos!');
-        }
         
-        if (!pedido.restaurante.getCardapio().contains(produto)){
-            throw new IllegalArgumentException('Produto ' + produto.nome + ' não existe no cardápio!');
-        }
+        if (!pedido.restaurante.getCardapio().contains(produto)) throw new IllegalArgumentException('Produto ' + produto.nome + ' não existe no cardápio!');
 
         pedido.adicionarItemPedido(produto, quantidade);
     }
 
     public void confirmarPedido(Pedido pedido){
-     
-        if (pedido.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para ser confirmado!');
-        }
 
-        if (pedido == null || pedido.getItens().isEmpty()){
-            throw new IllegalArgumentException('O pedido deve ter pelo menos um item!');
-        }
+        if (pedido == null || pedido.getItens().isEmpty()) throw new IllegalArgumentException('O pedido deve ter pelo menos um item!');
 
-        if (pedido.total.valorMonetario <= 0){
-            throw new IllegalArgumentException('O pedido deve ter um valor maior que zero!');
-        }
+        if (pedido.total.valorMonetario <= 0) throw new IllegalArgumentException('O pedido deve ter um valor maior que zero!');
 
         for (ItemPedido item : pedido.getItens()){
             if (item.quantidade <= 0){
@@ -34,45 +21,31 @@ public with sharing class ProcessadorPedido {
             }
         }
 
-        if (pedido.restaurante == null){
-            throw new IllegalArgumentException('O pedido deve ter um restaurante!');
-        }
-
-       pedido.confirmar();
-       pedido.calcularTotal();
-       System.debug('Pedido confirmado com sucesso!');
+        if (pedido.restaurante == null) throw new IllegalArgumentException('O pedido deve ter um restaurante!');
+        
+        pedido.confirmar();
+        pedido.calcularTotal();
+        System.debug('Pedido confirmado com sucesso!');
     }
 
     public void finalizarPedido(Pedido pedido){
-        if (pedido.status != StatusPedido.EM_PROCESSAMENTO)
-            throw new IllegalArgumentException('O pedido deve estar no status EM_PROCESSAMENTO para ser entregue!');
 
         pedido.finalizarEntrega();
-       System.debug('Pedido entregue com sucesso!');
-
+        System.debug('Pedido entregue com sucesso!');
     }
 
     public void cancelarPedido(Pedido pedido){
-        if (pedido.status == StatusPedido.ENTREGUE){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para ser cancelado!');
-        }
 
         pedido.cancelar();
         System.debug('Pedido cancelado com sucesso!');
     }
 
     public void removerProduto(Pedido pedido, Produto produto){
-        if (pedido.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para remover um produto!');
-        }
 
         pedido.executarRemocao(produto);
     }
 
     public void alterarQuantidade(Pedido pedido, Produto produto, Integer quantidade){
-         if (pedido.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para remover um produto!');
-        }
 
         if (quantidade <= 0){
             pedido.executarRemocao(produto);
@@ -83,9 +56,6 @@ public with sharing class ProcessadorPedido {
     }
 
     public void aplicarPoliticaFrete(Pedido pedido, PoliticaDeFrete politicaFrete){
-        if (pedido.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para aplicar frete!');
-        }
 
         pedido.calcularTotal();
         pedido.aplicarFrete(politicaFrete.calcularFrete(pedido));

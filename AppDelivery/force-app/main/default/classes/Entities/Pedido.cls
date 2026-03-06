@@ -6,6 +6,7 @@ public with sharing class Pedido extends EntidadeBase{
     public StatusPedido status { get; private set; }
     public Dinheiro total { get; private set; }
     public Dinheiro frete { get; private set; }
+    public EstadoPedido estadoAtual { get; private set; }
 
     public Pedido(Cliente cliente, Restaurante restaurante){
         super();
@@ -18,6 +19,8 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
         
+        this.estadoAtual.adicionarProduto(this, produto, quantidade);
+
         if (quantidade <= 0){
             throw new IllegalArgumentException('A quantidade deve ser maior que zero!');
         }
@@ -44,6 +47,8 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void executarRemocao(Produto produto){
 
+        this.estadoAtual.removerProduto(this, produto);
+
         for(Integer i = 0; i < itens.size(); i++){
             if (itens[i].produto.id == produto.id){
                 itens.remove(i);
@@ -56,6 +61,8 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void executaAlteraQuantidade(Produto produto, Integer quantidade){
         
+        this.estadoAtual.removerProduto(this, produto);
+
         for (ItemPedido item : itens){
             if (item.produto.id == produto.id){
                 item.atualizarQuantidade(quantidade);
@@ -76,14 +83,17 @@ public with sharing class Pedido extends EntidadeBase{
     }
 
     public void confirmar(){
+        this.estadoAtual.confirmar(this);
         this.status = StatusPedido.EM_PROCESSAMENTO;
     }
 
     public void cancelar(){
+        this.estadoAtual.cancelar(this);
         this.status = StatusPedido.CANCELADO;
     }
 
     public void finalizarEntrega(){
+        this.estadoAtual.marcarComoEntregue(this);
         this.status = StatusPedido.ENTREGUE;
     }
 
