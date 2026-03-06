@@ -16,6 +16,10 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
         
+        if (quantidade <= 0){
+            throw new IllegalArgumentException('A quantidade deve ser maior que zero!');
+        }
+
         for (ItemPedido item : itens){
 
             if (item.produto.id == produto.id){
@@ -76,7 +80,8 @@ public with sharing class Pedido extends EntidadeBase{
     }
 
     public List<ItemPedido>  getItens(){
-        return itens;
+
+        return new List<ItemPedido>(this.itens);
     }
 
     public void exibirResumo(){

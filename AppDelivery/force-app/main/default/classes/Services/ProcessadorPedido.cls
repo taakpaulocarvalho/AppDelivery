@@ -2,16 +2,12 @@ public with sharing class ProcessadorPedido {
     
     public ProcessadorPedido(){}
 
-    public void adicionarProduto(Pedido pedido, Produto produto, Integer quantidade, Restaurante restaurante){
+    public void adicionarProduto(Pedido pedido, Produto produto, Integer quantidade){
          if (pedido.status != StatusPedido.CARRINHO){
             throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para adicionar produtos!');
         }
-
-        if (quantidade <= 0){
-            throw new IllegalArgumentException('A quantidade deve ser maior que zero!');
-        }
         
-        if (!restaurante.getCardapio().contains(produto)){
+        if (!pedido.restaurante.getCardapio().contains(produto)){
             throw new IllegalArgumentException('Produto ' + produto.nome + ' não existe no cardápio!');
         }
 
@@ -30,6 +26,16 @@ public with sharing class ProcessadorPedido {
 
         if (pedido.total.valorMonetario <= 0){
             throw new IllegalArgumentException('O pedido deve ter um valor maior que zero!');
+        }
+
+        for (ItemPedido item : pedido.getItens()){
+            if (item.quantidade <= 0){
+                throw new IllegalArgumentException('A quantidade do produto ' + item.produto.nome + ' deve ser maior que zero!');
+            }
+        }
+
+        if (pedido.restaurante == null){
+            throw new IllegalArgumentException('O pedido deve ter um restaurante!');
         }
 
        pedido.confirmar();

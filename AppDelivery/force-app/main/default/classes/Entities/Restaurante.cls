@@ -74,4 +74,8 @@ public with sharing class Restaurante extends EntidadeBase{
     public List<Produto> getCardapio(){
         return cardapio;
     }
+
+    public void adicionarProdutoCardapio(Produto produto){
+        this.cardapio.add(produto);
+    }
 }
