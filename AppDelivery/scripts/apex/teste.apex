@@ -539,6 +539,7 @@ try{
     System.debug('Erro: ' + e.getMessage());
 }*/
 
+/*
 System.debug('');
 System.debug('ETAPA 5 - PARTE 3:');
 System.debug('');
@@ -563,5 +564,23 @@ try{
     System.debug('Erro: ' + e.getMessage());
 }
 
-//pedido.finalizarEntrega();
 System.debug('Status final: ' + pedidonovo.status);
+*/
+
+System.debug('');
+System.debug('ETAPA 5 - PARTE 3:');
+System.debug('Ja pude verificar com testes da etapa anterior');
+System.debug('');
+
+System.debug('');
+System.debug('ETAPA 5 - PARTE 5:');
+System.debug('');
+
+Pedido pedidoNovo = new Pedido(c1, rest1);
+pedidonovo.adicionarItemPedido(pizza1, 1);
+pedidoNovo.exibirResumo();
+
+pedidoNovo.confirmar();
+pedidoNovo.exibirResumo();
+pedidoNovo.finalizarEntrega();
+pedidoNovo.exibirResumo();

@@ -3,7 +3,6 @@ public with sharing class Pedido extends EntidadeBase{
     public Cliente cliente { get; private set; }
     public Restaurante restaurante { get; private set; }
     private List<ItemPedido> itens = new List<ItemPedido>();
-    public StatusPedido status { get; set; }
     public Dinheiro total { get; private set; }
     public Dinheiro frete { get; private set; }
     public EstadoPedido estadoAtual { get; private set; }
@@ -12,7 +11,6 @@ public with sharing class Pedido extends EntidadeBase{
         super();
         this.cliente = cliente;
         this.restaurante = restaurante;
-        this.status = StatusPedido.CARRINHO;
         this.total = new Dinheiro(0);
         this.frete = new Dinheiro(0);
         this.estadoAtual = new EstadoCarrinho();
@@ -119,7 +117,7 @@ public with sharing class Pedido extends EntidadeBase{
         }
 
         System.debug('Valor Total: ' + total);
-        System.debug('Status do Pedido: ' + status);
+        System.debug('Status do Pedido: ' + estadoAtual);
     }
 }
 
