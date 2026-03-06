@@ -494,13 +494,13 @@ System.debug('ETAPA 5 - PARTE 1:');
 System.debug(' Apenas criacao da classe abstrata, sem implementacao de metodos');
 System.debug('');
 
-System.debug('');
-System.debug('ETAPA 5 - PARTE 2:');
-System.debug('');
+//System.debug('');
+//System.debug('ETAPA 5 - PARTE 2:');
+//System.debug('');
 
 Pedido pedido = new Pedido(c1, rest1);
 ProcessadorPedido processador = new ProcessadorPedido();
-
+/*
 try{
     processador.adicionarProduto(pedido, pizza1, 1);
     System.debug('Produto adicionado!');
@@ -537,4 +537,31 @@ try{
     processador.cancelarPedido(pedido);
 } catch (Exception e){
     System.debug('Erro: ' + e.getMessage());
+}*/
+
+System.debug('');
+System.debug('ETAPA 5 - PARTE 3:');
+System.debug('');
+
+
+Pedido pedidoNovo = new Pedido(c1, rest1);
+System.debug('Estado inicial: ' + pedidonovo.status);    
+System.debug('Estado inicial: ' + pedidonovo.estadoAtual);
+pedidoNovo.confirmar();
+
+try{
+    System.debug('Status após confirmar: ' + pedidonovo.status);
+    System.debug('Estado atual: ' + pedidonovo.estadoAtual);
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
 }
+
+try{
+    System.debug('Marcando como entregue: ');
+    pedidoNovo.finalizarEntrega();
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+//pedido.finalizarEntrega();
+System.debug('Status final: ' + pedidonovo.status);

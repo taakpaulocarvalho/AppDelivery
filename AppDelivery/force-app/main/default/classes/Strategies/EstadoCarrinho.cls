@@ -9,12 +9,16 @@ public with sharing class EstadoCarrinho extends EstadoPedido{
     }
 
     public override void confirmar(Pedido pedido){
+        
         System.debug('Confirmando Pedido e alterando estado para EM PROCESSAMENTO!');
+        pedido.status = StatusPedido.EM_PROCESSAMENTO;
         pedido.trocarEstado(new EstadoEmProcessamento());
     }
 
     public override void cancelar(Pedido pedido){
+
         System.debug('Cancelando Pedido e alterando estado para CANCELADO!');
+        pedido.status = StatusPedido.CANCELADO;
         pedido.trocarEstado(new EstadoCancelado());
     }
 

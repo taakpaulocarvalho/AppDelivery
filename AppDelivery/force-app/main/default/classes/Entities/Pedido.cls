@@ -3,7 +3,7 @@ public with sharing class Pedido extends EntidadeBase{
     public Cliente cliente { get; private set; }
     public Restaurante restaurante { get; private set; }
     private List<ItemPedido> itens = new List<ItemPedido>();
-    public StatusPedido status { get; private set; }
+    public StatusPedido status { get; set; }
     public Dinheiro total { get; private set; }
     public Dinheiro frete { get; private set; }
     public EstadoPedido estadoAtual { get; private set; }
@@ -85,17 +85,14 @@ public with sharing class Pedido extends EntidadeBase{
 
     public void confirmar(){
         this.estadoAtual.confirmar(this);
-        this.status = StatusPedido.EM_PROCESSAMENTO;
     }
 
     public void cancelar(){
         this.estadoAtual.cancelar(this);
-        this.status = StatusPedido.CANCELADO;
     }
 
     public void finalizarEntrega(){
         this.estadoAtual.marcarComoEntregue(this);
-        this.status = StatusPedido.ENTREGUE;
     }
 
     public List<ItemPedido>  getItens(){
