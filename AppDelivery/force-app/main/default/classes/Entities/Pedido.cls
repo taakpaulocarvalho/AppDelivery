@@ -15,6 +15,7 @@ public with sharing class Pedido extends EntidadeBase{
         this.status = StatusPedido.CARRINHO;
         this.total = new Dinheiro(0);
         this.frete = new Dinheiro(0);
+        this.estadoAtual = new EstadoCarrinho();
     }
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
@@ -106,6 +107,10 @@ public with sharing class Pedido extends EntidadeBase{
         this.frete = frete;
     } 
 
+    public void trocarEstado(EstadoPedido novoEstado){
+        this.estadoAtual = novoEstado;
+    }
+
     public void exibirResumo(){
 
         System.debug('RESUMO DO PEDIDO');
@@ -119,8 +124,6 @@ public with sharing class Pedido extends EntidadeBase{
         System.debug('Valor Total: ' + total);
         System.debug('Status do Pedido: ' + status);
     }
-
-    
 }
 
 

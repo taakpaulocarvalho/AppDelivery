@@ -349,7 +349,7 @@ System.debug('');
 */
 
 
-
+/*
 Documento doc1 = new Documento('12345678901');
 Documento doc2 = new Documento('45847548341');
 
@@ -405,3 +405,136 @@ System.debug('Total do pedido: ' + pedido.total.valorMonetario);
 System.debug('Confirmar pedido valido');
 processador.confirmarPedido(pedido);
 System.debug('Status do pedido: ' + pedido.status);
+*/
+
+/*
+System.debug('');
+System.debug('ETAPA 4 - PARTE 3:');
+System.debug('');
+
+Pedido pedido2 = new Pedido(c1, rest1);
+ProcessadorPedido processador2 = new ProcessadorPedido();
+processador2.adicionarProduto(pedido2, pizza1, 2);
+
+
+PoliticaDeFrete gratis = new FreteGratis();
+processador2.aplicarPoliticaFrete(pedido2, gratis);
+
+PoliticaDeFrete fixo = new FreteFixo(new Dinheiro(50.0));
+processador2.aplicarPoliticaFrete(pedido2, fixo);
+
+PoliticaDeFrete percentual = new FretePorPercentualDoTotal(10.0);
+
+processador2.aplicarPoliticaFrete(pedido2, percentual);
+
+System.debug('Status apos confirmar: ' + pedido2.status);
+
+System.debug('');
+System.debug('ETAPA 4 - PARTE 4:');
+System.debug(' Apenas criacao da Interface');
+System.debug('');
+
+try{
+    processador2.confirmarPedido(pedido2);
+    processador2.finalizarPedido(pedido2);
+    System.debug('Status do Pedido: ' + pedido2.status);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try {
+    processador2.cancelarPedido(pedido2);
+
+} catch(Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try{
+    processador2.confirmarPedido(pedido2);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try {
+    processador2.adicionarProduto(pedido2, pizza2, 1);
+
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}*/
+
+
+
+Documento doc1 = new Documento('12345678901');
+Documento doc2 = new Documento('45847548341');
+
+Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
+Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
+
+Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+
+Dinheiro dinheiro1 = new Dinheiro(50.0);
+
+Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1, 
+
+new PoliticaPrecoPadrao());
+Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1, new PoliticaPrecoPadrao());
+
+List<Produto> cardapio = new List<Produto>();
+cardapio.add(pizza1);
+cardapio.add(pizza2);
+
+CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
+Restaurante rest1 = new Restaurante('Bella Pizza', end1, cat, cardapio);
+
+System.debug('');
+System.debug('ETAPA 5 - PARTE 1:');
+System.debug(' Apenas criacao da classe abstrata, sem implementacao de metodos');
+System.debug('');
+
+System.debug('');
+System.debug('ETAPA 5 - PARTE 2:');
+System.debug('');
+
+Pedido pedido = new Pedido(c1, rest1);
+ProcessadorPedido processador = new ProcessadorPedido();
+
+try{
+    processador.adicionarProduto(pedido, pizza1, 1);
+    System.debug('Produto adicionado!');
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+try{
+    processador.confirmarPedido(pedido);
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+System.debug(' ');
+System.debug('Adicionar produto que já foi confirmado');
+try{
+    processador.adicionarProduto(pedido, pizza1, 1);
+    System.debug('Produto adicionado!');
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+System.debug(' ');
+System.debug('Finalizar pedido');
+try{
+    processador.finalizarPedido(pedido);
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
+
+System.debug(' ');
+System.debug('Cancelar algo já entregue');
+try{
+    processador.cancelarPedido(pedido);
+} catch (Exception e){
+    System.debug('Erro: ' + e.getMessage());
+}
