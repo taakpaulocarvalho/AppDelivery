@@ -109,6 +109,8 @@ public with sharing class Pedido extends EntidadeBase{
         System.debug('Valor Total: ' + total);
         System.debug('Status do Pedido: ' + status);
     }
+
+    
 }
 
 
