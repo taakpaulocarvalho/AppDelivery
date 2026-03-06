@@ -23,6 +23,6 @@ public with sharing class EstadoCarrinho extends EstadoPedido{
     }
 
     public override void marcarComoEntregue(Pedido pedido){
-        throw new IllegalArgumentException('Não é possivel marcar como entregue no estado atual!');
+        throw new IllegalArgumentException('É necessário CONFIRMAR o pedido antes de finalizar a entrega!');
     }
 }

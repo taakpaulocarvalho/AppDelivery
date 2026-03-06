@@ -1,11 +1,11 @@
 public with sharing class EstadoEntregue extends EstadoPedido{
     
     public override void adicionarProduto(Pedido pedido, Produto produto, Integer quantidade){
-        throw new IllegalArgumentException('Não é possível adicionar produtos no estado atual de ENTREGUE!');
+        throw new IllegalArgumentException('Não é possível adicionar produtos que está no estado de ENTREGUE!');
     }
 
     public override void removerProduto(Pedido pedido, Produto produto){
-        throw new IllegalArgumentException('Não é possível remover produtos no estado atual de ENTREGUE!');
+        throw new IllegalArgumentException('Não é possível remover produtos que está no estado de ENTREGUE!');
     }
 
     public override void confirmar(Pedido pedido){
