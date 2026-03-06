@@ -15,49 +15,28 @@ public with sharing class Pedido extends EntidadeBase{
     }
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
-
-        if (this.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para adicionar produtos!');
-        }
-
-        if (quantidade <= 0){
-            System.debug('A quantidade deve ser maior que zero!');
-            return;
-        }
         
-        if (!restaurante.cardapio.contains(produto)){
+        for (ItemPedido item : itens){
 
-            System.debug('Produto ' + produto.nome + ' não existe no cardápio!');
-            return;
-        }
-        else{
-            
-            for (ItemPedido item : itens){
+            if (item.produto.id == produto.id){
+                
+                item.adicionarQuantidade(quantidade);
+                total = calcularTotal();
+                System.debug('A quantidade de ' + item.produto.nome + ' foi aumentada com sucesso!');
 
-                if (item.produto.id == produto.id){
-                    
-                    item.adicionarQuantidade(quantidade);
-                    total = calcularTotal();
-                    System.debug('A quantidade de ' + item.produto.nome + ' foi aumentada com sucesso!');
+                return;
+            }
+        } 
 
-                    return;
-                }
-            } 
+        itens.add(ItemPedido.criarItemPedido(produto, quantidade));
+        System.debug('O pedido foi adicionado com sucesso!');
 
-            //ItemPedido item = new ItemPedido(produto, quantidade);
-            itens.add(ItemPedido.criarItemPedido(produto, quantidade));
-            System.debug('O pedido foi adicionado com sucesso!');
-
-            total = calcularTotal();
-        }
+        total = calcularTotal();
+        
     }
 
 
-    public void removerProduto(Produto produto){
-
-        if (this.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para remover produtos!');
-        }
+    public void executarRemocao(Produto produto){
 
         for(Integer i = 0; i < itens.size(); i++){
             if (itens[i].produto.id == produto.id){
@@ -69,17 +48,8 @@ public with sharing class Pedido extends EntidadeBase{
         }
     }
 
-    public void alterarQuantidade(Produto produto, Integer quantidade){
+    public void executaAlteraQuantidade(Produto produto, Integer quantidade){
         
-        if (this.status != StatusPedido.CARRINHO){
-            throw new IllegalArgumentException('O pedido deve estar com status CARRINHO para alterar produtos!');
-        }
-
-        if (quantidade <= 0){
-            removerProduto(produto);
-            return;
-        }
-
         for (ItemPedido item : itens){
             if (item.produto.id == produto.id){
                 item.atualizarQuantidade(quantidade);
@@ -97,15 +67,16 @@ public with sharing class Pedido extends EntidadeBase{
         return total;
     }
 
-    public void confirmarPedido(){
-        if (status == StatusPedido.CARRINHO && !itens.isEmpty()){
-            status = StatusPedido.EM_PROCESSAMENTO;
-            System.debug('Pedido confirmado com sucesso!');
-        }
-        else{
-            String erro = itens.isEmpty() ? 'Pedido VAZIO!' : 'Status do pedido diferente de CARRINHO!';
-            throw new IllegalArgumentException(erro);
-        }
+    public void confirmar(){
+        this.status = StatusPedido.EM_PROCESSAMENTO;
+    }
+
+    public void cancelar(){
+        this.status = StatusPedido.CARRINHO;
+    }
+
+    public List<ItemPedido>  getItens(){
+        return itens;
     }
 
     public void exibirResumo(){
@@ -122,9 +93,7 @@ public with sharing class Pedido extends EntidadeBase{
         System.debug('Status do Pedido: ' + status);
     }
 
-    public List<ItemPedido>  getItens(){
-        return itens;
-    }
+    
 }
 
 

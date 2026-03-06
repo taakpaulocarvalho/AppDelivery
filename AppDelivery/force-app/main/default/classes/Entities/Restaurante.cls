@@ -3,7 +3,7 @@ public with sharing class Restaurante extends EntidadeBase{
     public String nome { get; private set; }
     public Endereco endereco { get; private set; }
     public CategoriaRestaurante categoria { get; private set; }
-    public List<Produto> cardapio { get; private set; }
+    private List<Produto> cardapio;
     
     public Restaurante(){
         super();
@@ -69,5 +69,9 @@ public with sharing class Restaurante extends EntidadeBase{
             }
         }
         return produtos;
+    }
+
+    public List<Produto> getCardapio(){
+        return cardapio;
     }
 }
