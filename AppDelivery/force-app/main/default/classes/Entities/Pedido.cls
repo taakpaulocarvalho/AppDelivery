@@ -5,13 +5,15 @@ public with sharing class Pedido extends EntidadeBase{
     private List<ItemPedido> itens = new List<ItemPedido>();
     public StatusPedido status { get; private set; }
     public Dinheiro total { get; private set; }
+    public Dinheiro frete { get; private set; }
 
     public Pedido(Cliente cliente, Restaurante restaurante){
         super();
         this.cliente = cliente;
         this.restaurante = restaurante;
-        status = StatusPedido.CARRINHO;
-        total = new Dinheiro(0);
+        this.status = StatusPedido.CARRINHO;
+        this.total = new Dinheiro(0);
+        this.frete = new Dinheiro(0);
     }
 
     public void adicionarItemPedido(Produto produto, Integer quantidade){
@@ -68,6 +70,8 @@ public with sharing class Pedido extends EntidadeBase{
         for (ItemPedido item : itens){
             total = total.Somar(item.calcularSubtotal());
         }
+        
+        this.total = total.Somar(frete);
         return total;
     }
 
@@ -98,7 +102,9 @@ public with sharing class Pedido extends EntidadeBase{
         System.debug('Status do Pedido: ' + status);
     }
 
-    
+    public void aplicarFrete(Dinheiro frete){
+        this.frete = frete;
+    } 
 }
 
 

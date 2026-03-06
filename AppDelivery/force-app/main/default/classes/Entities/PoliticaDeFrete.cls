@@ -1,4 +1,3 @@
-public with sharing class PoliticaDeFrete {
-    public PoliticaDeFrete() {
-    }
+public interface PoliticaDeFrete {
+    Dinheiro calcularFrete(Pedido pedido);
 }

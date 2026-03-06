@@ -72,4 +72,15 @@ public with sharing class ProcessadorPedido {
         pedido.executaAlteraQuantidade(produto, quantidade);
         pedido.calcularTotal();
     }
+
+    public void aplicarPoliticaFrete(Pedido pedido, PoliticaDeFrete politicaFrete){
+        if (pedido.status != StatusPedido.CARRINHO){
+            throw new IllegalArgumentException('O pedido deve estar no status CARRINHO para aplicar frete!');
+        }
+
+        pedido.calcularTotal();
+        pedido.aplicarFrete(politicaFrete.calcularFrete(pedido));
+        pedido.calcularTotal();
+        System.debug('Frete com valor de: ' + pedido.frete + ' aplicado de acordo com politica de frete!');
+    }
 }

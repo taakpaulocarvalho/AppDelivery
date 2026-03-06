@@ -405,3 +405,25 @@ System.debug('Total do pedido: ' + pedido.total.valorMonetario);
 System.debug('Confirmar pedido valido');
 processador.confirmarPedido(pedido);
 System.debug('Status do pedido: ' + pedido.status);
+
+
+System.debug('');
+System.debug('ETAPA 4 - PARTE 3:');
+System.debug('');
+
+Pedido pedido2 = new Pedido(c1, rest1);
+ProcessadorPedido processador2 = new ProcessadorPedido();
+processador2.adicionarProduto(pedido2, pizza1, 2);
+
+
+PoliticaDeFrete gratis = new FreteGratis();
+processador2.aplicarPoliticaFrete(pedido2, gratis);
+
+PoliticaDeFrete fixo = new FreteFixo(new Dinheiro(50.0));
+processador2.aplicarPoliticaFrete(pedido2, fixo);
+
+PoliticaDeFrete percentual = new FretePorPercentualDoTotal(10.0);
+
+processador2.aplicarPoliticaFrete(pedido2, percentual);
+
+System.debug('Status apos confirmar: ' + pedido2.status);
