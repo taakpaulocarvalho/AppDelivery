@@ -134,9 +134,6 @@ catch(IllegalArgumentException e){
 }
 
 
-
-
-
 System.debug('');
 System.debug('ETAPA 2 - PARTE 2:');
 System.debug(' ');
@@ -464,42 +461,44 @@ try {
     System.debug('Erro: ' + e.getMessage());
 }*/
 
+// ====================================================================
+// ====================================================================
+// ====================================================================
 
+// Documento doc1 = new Documento('12345678901');
+// Documento doc2 = new Documento('45847548341');
 
-Documento doc1 = new Documento('12345678901');
-Documento doc2 = new Documento('45847548341');
+// Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
+// Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
 
-Endereco end1 = new Endereco('Rua 1', '123', 'Casa', 'Sao Paulo');
-Endereco end2 = new Endereco('Rua Azul', '13', 'APTO', 'SBC');
+// Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+// Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
 
-Cliente c1 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
-Cliente c2 = new Cliente('Neymar', doc1, end1, '(11)3943 2292');
+// Dinheiro dinheiro1 = new Dinheiro(50.0);
 
-Dinheiro dinheiro1 = new Dinheiro(50.0);
+// Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1, 
 
-Produto pizza1 = new Produto('Pizza Calabresa', dinheiro1, 
+// new PoliticaPrecoPadrao());
+// Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1, new PoliticaPrecoPadrao());
 
-new PoliticaPrecoPadrao());
-Produto pizza2 = new Produto('Pizza Mussarela', dinheiro1, new PoliticaPrecoPadrao());
+// List<Produto> cardapio = new List<Produto>();
+// cardapio.add(pizza1);
+// cardapio.add(pizza2);
 
-List<Produto> cardapio = new List<Produto>();
-cardapio.add(pizza1);
-cardapio.add(pizza2);
+// CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
+// Restaurante rest1 = new Restaurante('Bella Pizza', end1, cat, cardapio);
 
-CategoriaRestaurante cat = CategoriaRestaurante.PIZZARIA;
-Restaurante rest1 = new Restaurante('Bella Pizza', end1, cat, cardapio);
+// System.debug('');
+// System.debug('ETAPA 5 - PARTE 1:');
+// System.debug(' Apenas criacao da classe abstrata, sem implementacao de metodos');
+// System.debug('');
 
-System.debug('');
-System.debug('ETAPA 5 - PARTE 1:');
-System.debug(' Apenas criacao da classe abstrata, sem implementacao de metodos');
-System.debug('');
+// //System.debug('');
+// //System.debug('ETAPA 5 - PARTE 2:');
+// //System.debug('');
 
-//System.debug('');
-//System.debug('ETAPA 5 - PARTE 2:');
-//System.debug('');
-
-Pedido pedido = new Pedido(c1, rest1);
-ProcessadorPedido processador = new ProcessadorPedido();
+// Pedido pedido = new Pedido(c1, rest1);
+// ProcessadorPedido processador = new ProcessadorPedido();
 /*
 try{
     processador.adicionarProduto(pedido, pizza1, 1);
@@ -567,20 +566,94 @@ try{
 System.debug('Status final: ' + pedidonovo.status);
 */
 
-System.debug('');
-System.debug('ETAPA 5 - PARTE 3:');
-System.debug('Ja pude verificar com testes da etapa anterior');
-System.debug('');
+// System.debug('');
+// System.debug('ETAPA 5 - PARTE 3:');
+// System.debug('Ja pude verificar com testes da etapa anterior');
+// System.debug('');
 
-System.debug('');
-System.debug('ETAPA 5 - PARTE 5:');
-System.debug('');
+// System.debug('');
+// System.debug('ETAPA 5 - PARTE 5:');
+// System.debug('');
 
-Pedido pedidoNovo = new Pedido(c1, rest1);
-pedidonovo.adicionarItemPedido(pizza1, 1);
-pedidoNovo.exibirResumo();
+// Pedido pedidoNovo = new Pedido(c1, rest1);
+// pedidonovo.adicionarItemPedido(pizza1, 1);
+// pedidoNovo.exibirResumo();
 
-pedidoNovo.confirmar();
-pedidoNovo.exibirResumo();
-pedidoNovo.finalizarEntrega();
-pedidoNovo.exibirResumo();
+// pedidoNovo.confirmar();
+// pedidoNovo.exibirResumo();
+// pedidoNovo.finalizarEntrega();
+// pedidoNovo.exibirResumo();
+
+
+System.debug(' ');
+System.debug(' ');
+System.debug(' ');
+
+System.debug('------ TESTE COMPLETO DO PROJETO ------');
+Documento documento = new Documento('333.444.555-66');
+Endereco endereco = new Endereco('Rua Aveiro', '10', 'Mansao', 'Santos');
+Cliente cliente = new Cliente('Neymar Junior', documento, endereco, '11 92112 1212');
+
+Endereco enderecoRestaurante = new Endereco('Faria Lima', '250', 'Casa', 'São Paulo');
+Restaurante restaurante = new Restaurante('Pizzaria', enderecoRestaurante, CategoriaRestaurante.PIZZARIA, new List<Produto>());
+Produto calabresa = new Produto('Pizza Calabresa', new Dinheiro(50.0), new PoliticaPrecoPadrao());
+Produto mussarela = new Produto('Pizza Mussarela', new Dinheiro(45.0), new PoliticaPrecoPadrao());
+
+System.debug(' ');
+System.debug(' ');
+System.debug(' ');
+
+restaurante.adicionarProduto(calabresa);
+restaurante.adicionarProduto(mussarela);
+
+ProcessadorPedido processador = new ProcessadorPedido();
+Pedido pedido = new Pedido(cliente, restaurante);
+
+System.debug(' ');
+System.debug('Estado inicial: ' + pedido.getNomeEstado());
+System.debug(' ');
+
+processador.adicionarProduto(pedido, calabresa, 1);
+processador.adicionarProduto(pedido, mussarela, 1);
+System.debug(' ');
+
+System.debug('Total do pedido sem frete: ' + pedido.total.valorMonetario);
+System.debug(' ');
+
+processador.aplicarPoliticaFrete(pedido, new FreteFixo(new Dinheiro(10.0)));
+
+System.debug('Total do pedido com frete: ' + pedido.total.valorMonetario);
+pedido.exibirResumo();
+System.debug(' ');
+
+processador.confirmarPedido(pedido);
+pedido.exibirResumo();
+System.debug('Novo estado: ' + pedido.getNomeEstado());
+System.debug(' ');
+
+try{
+    processador.adicionarProduto(pedido, mussarela, 2);
+} catch(Exception e){
+    System.debug('BLOQUEADO!');
+    System.debug('Erro: ' + e.getMessage());
+}
+
+System.debug(' ');
+System.debug('DE PROCESSAMENTO PARA ENTREGUE!');
+processador.finalizarPedido(pedido);
+System.debug('Estado final: ' + pedido.getNomeEstado());
+System.debug(' ');
+pedido.exibirResumo();
+
+
+System.debug(' ');
+System.debug('Teste final de erros (CANCELAR PEDIDO ENTREGUE):');
+
+try {
+    processador.cancelarPedido(pedido);
+    System.debug('ERRO!');
+} catch (Exception E) {
+    System.debug('BLOQUEADO!');
+    System.debug('Erro: ' + e.getMessage());
+}
+

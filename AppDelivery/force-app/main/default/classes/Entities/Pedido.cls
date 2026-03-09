@@ -15,15 +15,17 @@ public with sharing class Pedido extends EntidadeBase{
         this.frete = new Dinheiro(0);
         this.estadoAtual = new EstadoCarrinho();
     }
+    
+    // ---------------------------------------------------------------------------------------
 
+    // ADICIONA PRODUTO AO PEDIDO
     public void adicionarItemPedido(Produto produto, Integer quantidade){
         
         this.estadoAtual.adicionarProduto(this, produto, quantidade);
 
-        if (quantidade <= 0){
+        if (quantidade <= 0)
             throw new IllegalArgumentException('A quantidade deve ser maior que zero!');
-        }
-
+        
         for (ItemPedido item : itens){
 
             if (item.produto.id == produto.id){
@@ -39,11 +41,10 @@ public with sharing class Pedido extends EntidadeBase{
         itens.add(ItemPedido.criarItemPedido(produto, quantidade));
         System.debug('O pedido foi adicionado com sucesso!');
 
-        total = calcularTotal();
-        
+        total = calcularTotal();  
     }
 
-
+    // REMOVE PRODUTO DO PEDIDO
     public void executarRemocao(Produto produto){
 
         this.estadoAtual.removerProduto(this, produto);
@@ -58,6 +59,8 @@ public with sharing class Pedido extends EntidadeBase{
         }
     }
 
+
+    // ATUALIZA QUANTIDADE DO PRODUTO
     public void executaAlteraQuantidade(Produto produto, Integer quantidade){
         
         this.estadoAtual.removerProduto(this, produto);
@@ -66,11 +69,13 @@ public with sharing class Pedido extends EntidadeBase{
             if (item.produto.id == produto.id){
                 item.atualizarQuantidade(quantidade);
                 this.total = calcularTotal();
+                System.debug('Quantidade atualizada!');
                 return;
             } 
         }
     }
 
+    // CALCULA O VALOR TOTAL DO PEDIDO
     public Dinheiro calcularTotal(){
         Dinheiro total = new Dinheiro(0);
         for (ItemPedido item : itens){
@@ -89,23 +94,30 @@ public with sharing class Pedido extends EntidadeBase{
         this.estadoAtual.cancelar(this);
     }
 
+
     public void finalizarEntrega(){
         this.estadoAtual.marcarComoEntregue(this);
     }
 
-    public List<ItemPedido>  getItens(){
-
-        return new List<ItemPedido>(this.itens);
-    }
-
     public void aplicarFrete(Dinheiro frete){
         this.frete = frete;
-    } 
+    }
+    
+    public List<ItemPedido>  getItens(){
+        return new List<ItemPedido>(this.itens);
+    }
 
     public void trocarEstado(EstadoPedido novoEstado){
         this.estadoAtual = novoEstado;
     }
 
+    public String getNomeEstado(){
+        
+        return String.valueOf(this.estadoAtual).split(':')[0].replace('Estado', ' ');
+    }
+
+
+    //RESUMO COMPLETO DO PEDIDO
     public void exibirResumo(){
 
         System.debug('RESUMO DO PEDIDO');
@@ -116,8 +128,8 @@ public with sharing class Pedido extends EntidadeBase{
             System.debug('Produto: ' + item.produto.nome + ' - Quantidade: ' + item.quantidade + ' - Subtotal: ' + item.subtotal);
         }
 
-        System.debug('Valor Total: ' + total);
-        System.debug('Status do Pedido: ' + estadoAtual);
+        System.debug('Valor Total incluindo frete: ' + total);
+        System.debug('Status do Pedido: ' + this.getNomeEstado());
     }
 }
 

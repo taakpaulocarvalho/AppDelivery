@@ -8,6 +8,8 @@ public with sharing class OrdenarProdutosService implements Comparable {
         this.quantidade = quantidade;
     }
 
+    // ---------------------------------------------------------------------------------------
+
     public Integer compareTo(Object compareTo){
         OrdenarProdutosService produtoComparado = (OrdenarProdutosService) compareTo;
 

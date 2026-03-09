@@ -6,17 +6,14 @@ public with sharing class PoliticaPrecoPromocionalPorHorario implements Politica
     private Decimal percentual;
 
     public PoliticaPrecoPromocionalPorHorario(Time horaInicioDesconto, Time horaFimDesconto, Time HorarioAtual, Decimal percentual){
-        if (percentual < 0){
+        if (percentual < 0) 
             throw new IllegalArgumentException('O percentual deve ser maior que zero!');
-        }
 
-        if (horaInicioDesconto > horaFimDesconto){
+        if (horaInicioDesconto > horaFimDesconto) 
             throw new IllegalArgumentException('Horário de Fim deve ser após o Horario de Inicio!');
-        }
 
-        if (horaInicioDesconto == null || horaFimDesconto == null|| HorarioAtual == null || percentual == null){
+        if (horaInicioDesconto == null || horaFimDesconto == null|| HorarioAtual == null || percentual == null)
             throw new IllegalArgumentException('Todos os campos devem ser preenchidos!');
-        }
         
         this.horaInicioDesconto = horaInicioDesconto;
         this.horaFimDesconto = horaFimDesconto;
@@ -31,7 +28,6 @@ public with sharing class PoliticaPrecoPromocionalPorHorario implements Politica
 
             return produto.precoBase.Subtrair(new Dinheiro(valorDescontar));
         }
-
         return produto.precoBase;
     }
 }

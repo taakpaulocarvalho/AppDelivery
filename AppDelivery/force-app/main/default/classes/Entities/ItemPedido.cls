@@ -18,6 +18,10 @@ public with sharing class ItemPedido extends EntidadeBase{
         this.subtotal = calcularSubtotal();
     }
 
+
+    // ---------------------------------------------------------------------------
+
+    // METODO PARA INSTANCIAR UM ITEMPEDIDO QUE ESTA PRIVATE
     public static ItemPedido criarItemPedido(Produto produto, Integer quantidade){
         
         if(produto == null || produto.calcularPrecoFinal().valorMonetario < 0)
@@ -25,7 +29,6 @@ public with sharing class ItemPedido extends EntidadeBase{
 
         return new ItemPedido(produto, quantidade);
     }
-
 
     public Dinheiro calcularSubtotal(){
         return produto.calcularPrecoFinal().Multiplicar(this.quantidade);

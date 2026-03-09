@@ -3,7 +3,7 @@ public with sharing class FretePorPercentualDoTotal implements PoliticaDeFrete{
     private Decimal percentual;
 
     public FretePorPercentualDoTotal(Decimal percentual){
-        if (percentual == null || percentual <= 0)
+        if (percentual == null || percentual <= 0) 
             throw new IllegalArgumentException('O percentual deve ser maior que zero');
 
         this.percentual = percentual;

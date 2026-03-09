@@ -3,9 +3,8 @@ public with sharing class PoliticaPrecoComDescontoPercentual implements Politica
     private Decimal percentual;
 
     public PoliticaPrecoComDescontoPercentual(Decimal percentual){
-        if (percentual == null || percentual <= 0 || percentual > 100){
+        if (percentual == null || percentual <= 0 || percentual > 100) 
             throw new IllegalArgumentException('O percentual deve ser maior que zero e menor que 100!');
-        }
         
         this.percentual = percentual;
     }

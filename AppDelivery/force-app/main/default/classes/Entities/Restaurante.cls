@@ -18,6 +18,9 @@ public with sharing class Restaurante extends EntidadeBase{
         this.cardapio = (cardapio == null) ? new List<Produto>() : cardapio;
     }
 
+    // ---------------------------------------------------------------------------------------
+
+    // ADICIONA PRODUTO AO CARDAPIO DO RESTAURANTE
     public void adicionarProduto(Produto produto){
          
         Boolean produtoExiste = false;
@@ -38,6 +41,7 @@ public with sharing class Restaurante extends EntidadeBase{
         
     }
 
+    // EXIBE O CARDAPIO DO RESTAURANTE
     public void exibirCardapio(){
 
         if (cardapio == null || cardapio.isEmpty())
@@ -54,6 +58,7 @@ public with sharing class Restaurante extends EntidadeBase{
         }
     }
 
+    // BUSCA PRODUTOS NO CARDAPIO
     public List<Produto> buscarProdutos(String termoBusca){
 
         List<Produto> produtos = new List<Produto>();
@@ -71,11 +76,8 @@ public with sharing class Restaurante extends EntidadeBase{
         return produtos;
     }
 
+    // RETORNA O CARDAPIO DO RESTAURANTE QUE ESTA PRIVATE
     public List<Produto> getCardapio(){
         return cardapio;
-    }
-
-    public void adicionarProdutoCardapio(Produto produto){
-        this.cardapio.add(produto);
     }
 }

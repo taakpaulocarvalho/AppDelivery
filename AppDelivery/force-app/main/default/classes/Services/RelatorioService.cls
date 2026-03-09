@@ -1,5 +1,8 @@
 public with sharing class RelatorioService {
 
+
+    // GERA RELATORIO DE TOP 3 PRODUTOS MAIS VENDIDOS
+    // RETORNA UM MAP DE CHAVE: PRODUTO E VALOR: QUANTIDADE
     public static Map<Produto, Integer> gerarRelatorioProdutosMaisVendidos(List<Pedido> pedidos){
         
         Map<Produto,Integer> ordenarProdutos = new Map<Produto,Integer>();    
@@ -32,6 +35,7 @@ public with sharing class RelatorioService {
     }
 
 
+    //RETORNA UM MAP DE CHAVE: CPF E VALOR: LISTA DE PEDIDOS POR CLIENTE
     public static Map<Documento, List<Pedido>> gerarRelatorioPedidosPorCliente(List<Pedido> pedidos, List<Documento> cpfs){
 
         Map<Documento,List<Pedido>> pedidosPorCliente = new Map<Documento,List<Pedido>>();

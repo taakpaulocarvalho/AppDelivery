@@ -10,27 +10,24 @@ public with sharing class Dinheiro {
     }
 
     public Dinheiro Somar(Dinheiro dinheiro){
-        if (dinheiro == null){
+        if (dinheiro == null)
             throw new IllegalArgumentException('Dinheiro invalido!');
-        }
 
         Decimal resultado = this.valorMonetario + dinheiro.valorMonetario;
         return new Dinheiro(resultado);
     }
 
     public Dinheiro Subtrair(Dinheiro dinheiro){
-        if (this.valorMonetario < dinheiro.valorMonetario){
+        if (this.valorMonetario < dinheiro.valorMonetario)
             throw new IllegalArgumentException('Valor monetario invalido!');
-        }
 
         Decimal resultado = this.valorMonetario - dinheiro.valorMonetario;
         return new Dinheiro(resultado);
     }
 
     public Dinheiro Multiplicar(Integer quantidade){
-        if (quantidade == null || quantidade < 0){
+        if (quantidade == null || quantidade < 0)
             throw new IllegalArgumentException('Quantidade invalida!');
-        }
         
         Decimal resultado = this.valorMonetario * quantidade;
         return new Dinheiro(resultado);
